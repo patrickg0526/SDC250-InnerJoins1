@@ -1,0 +1,1 @@
+# SDC250-InnerJoins1
