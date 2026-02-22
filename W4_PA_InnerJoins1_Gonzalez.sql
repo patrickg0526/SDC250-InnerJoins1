@@ -1,98 +1,207 @@
--- Patrick Gonzalez
--- W4 Performance Assessment: Inner Joins Part 1
--- ======================================================
+/******************************************************************
+  Week 4 – Inner Joins Assignment
+  Name: Patrick
+******************************************************************/
 
+/*===============================================================
+  (13-3) Question 1 – (Show ALL rows)
+===============================================================*/
 
--- ======================================================
--- Question 1: FULL OUTER JOIN (Show all rows)
--- ======================================================
-
+--patrick
+WITH table1 AS (
+  SELECT 'Active' word FROM dual UNION ALL
+  SELECT 'Busy' FROM dual UNION ALL
+  SELECT 'Crafty' FROM dual UNION ALL
+  SELECT 'Determined' FROM dual UNION ALL
+  SELECT 'Eccentric' FROM dual
+),
+table2 AS (
+  SELECT 'Cat' word FROM dual UNION ALL
+  SELECT 'Dog' FROM dual UNION ALL
+  SELECT 'Ape' FROM dual UNION ALL
+  SELECT 'Fish' FROM dual UNION ALL
+  SELECT 'Bird' FROM dual UNION ALL
+  SELECT 'Rabbit' FROM dual
+)
 SELECT
-    f.fruit,
-    c.color
-FROM sec1303_fruits f
-FULL OUTER JOIN sec1303_colors c
-    ON SUBSTR(f.fruit, 1, 1) = SUBSTR(c.color, 1, 1)
-ORDER BY f.fruit, c.color;
+  t1.word AS table1_word,
+  t2.word AS table2_word
+FROM table1 t1
+FULL OUTER JOIN table2 t2
+  ON SUBSTR(t1.word,1,1) = SUBSTR(t2.word,1,1)
+ORDER BY t1.word, t2.word;
 
 
 
--- ======================================================
--- Question 2: INNER JOIN (Many-to-One)
--- ======================================================
 
+
+/*===============================================================
+  (13-4) Question 2 – INNER JOIN (Many-to-One)
+===============================================================*/
+
+--patrick
+WITH table1 AS (
+  SELECT 'Active' word FROM dual UNION ALL
+  SELECT 'Busy' FROM dual UNION ALL
+  SELECT 'Crafty' FROM dual UNION ALL
+  SELECT 'Determined' FROM dual UNION ALL
+  SELECT 'Eccentric' FROM dual UNION ALL
+  SELECT 'Blissful' FROM dual UNION ALL
+  SELECT 'Careless' FROM dual UNION ALL
+  SELECT 'Cautious' FROM dual UNION ALL
+  SELECT 'Eerie' FROM dual
+),
+table2 AS (
+  SELECT 'Cat' word FROM dual UNION ALL
+  SELECT 'Dog' FROM dual UNION ALL
+  SELECT 'Ape' FROM dual UNION ALL
+  SELECT 'Eel' FROM dual UNION ALL
+  SELECT 'Bird' FROM dual
+)
 SELECT
-    f.fruit,
-    c.color
-FROM sec1304_fruits f
-INNER JOIN sec1304_colors c
-    ON SUBSTR(f.fruit, 1, 1) = SUBSTR(c.color, 1, 1)
-ORDER BY f.fruit, c.color;
+  t1.word AS table1_word,
+  t2.word AS table2_word
+FROM table1 t1
+JOIN table2 t2
+  ON SUBSTR(t1.word,1,1) = SUBSTR(t2.word,1,1)
+ORDER BY t1.word, t2.word;
 
 
 
--- ======================================================
--- Question 3: INNER JOIN (One-to-Many)
--- ======================================================
 
+
+/*===============================================================
+  (13-5) Question 3 – INNER JOIN (One-to-Many)
+===============================================================*/
+
+--patrick
+WITH table1 AS (
+  SELECT 'Active' word FROM dual UNION ALL
+  SELECT 'Busy' FROM dual UNION ALL
+  SELECT 'Crafty' FROM dual UNION ALL
+  SELECT 'Determined' FROM dual UNION ALL
+  SELECT 'Eccentric' FROM dual
+),
+table2 AS (
+  SELECT 'Cat' word FROM dual UNION ALL
+  SELECT 'Dog' FROM dual UNION ALL
+  SELECT 'Ape' FROM dual UNION ALL
+  SELECT 'Eel' FROM dual UNION ALL
+  SELECT 'Bird' FROM dual UNION ALL
+  SELECT 'Armadillo' FROM dual UNION ALL
+  SELECT 'Butterfly' FROM dual UNION ALL
+  SELECT 'Camel' FROM dual UNION ALL
+  SELECT 'Crocodile' FROM dual
+)
 SELECT
-    f.fruit,
-    c.color
-FROM sec1305_fruits f
-INNER JOIN sec1305_colors c
-    ON SUBSTR(f.fruit, 1, 1) = SUBSTR(c.color, 1, 1)
-ORDER BY f.fruit, c.color;
+  t1.word AS table1_word,
+  t2.word AS table2_word
+FROM table1 t1
+JOIN table2 t2
+  ON SUBSTR(t1.word,1,1) = SUBSTR(t2.word,1,1)
+ORDER BY t1.word, t2.word;
 
 
 
--- ======================================================
--- Question 4: INNER JOIN (Many-to-Many)
--- ======================================================
 
+
+/*===============================================================
+  (13-6) Question 4 – INNER JOIN (Many-to-Many)
+===============================================================*/
+
+--patrick
+WITH table1 AS (
+  SELECT 'Active' word FROM dual UNION ALL
+  SELECT 'Busy' FROM dual UNION ALL
+  SELECT 'Crafty' FROM dual UNION ALL
+  SELECT 'Determined' FROM dual UNION ALL
+  SELECT 'Eccentric' FROM dual UNION ALL
+  SELECT 'Blissful' FROM dual UNION ALL
+  SELECT 'Careless' FROM dual UNION ALL
+  SELECT 'Cautious' FROM dual UNION ALL
+  SELECT 'Eerie' FROM dual
+),
+table2 AS (
+  SELECT 'Cat' word FROM dual UNION ALL
+  SELECT 'Dog' FROM dual UNION ALL
+  SELECT 'Ape' FROM dual UNION ALL
+  SELECT 'Eel' FROM dual UNION ALL
+  SELECT 'Bird' FROM dual UNION ALL
+  SELECT 'Armadillo' FROM dual UNION ALL
+  SELECT 'Butterfly' FROM dual UNION ALL
+  SELECT 'Camel' FROM dual UNION ALL
+  SELECT 'Crocodile' FROM dual
+)
 SELECT
-    f.fruit,
-    c.color
-FROM sec1306_fruits f
-INNER JOIN sec1306_colors c
-    ON SUBSTR(f.fruit, 1, 1) = SUBSTR(c.color, 1, 1)
-ORDER BY f.fruit, c.color;
+  t1.word AS table1_word,
+  t2.word AS table2_word
+FROM table1 t1
+JOIN table2 t2
+  ON SUBSTR(t1.word,1,1) = SUBSTR(t2.word,1,1)
+ORDER BY t1.word, t2.word;
 
 
 
--- ======================================================
--- Question 5A: Unmatched Fruits (Dropped by INNER JOIN)
--- ======================================================
-
-SELECT f.fruit
-FROM sec1308_fruits f
-LEFT JOIN sec1308_colors c
-    ON SUBSTR(f.fruit, 1, 1) = SUBSTR(c.color, 1, 1)
-WHERE c.color IS NULL
-ORDER BY f.fruit;
 
 
+/*===============================================================
+  (13-8) Question 5 – INNER JOIN (Show unmatched rows separately)
+===============================================================*/
 
--- ======================================================
--- Question 5B: Unmatched Colors (Dropped by INNER JOIN)
--- ======================================================
-
-SELECT c.color
-FROM sec1308_colors c
-LEFT JOIN sec1308_fruits f
-    ON SUBSTR(c.color, 1, 1) = SUBSTR(f.fruit, 1, 1)
-WHERE f.fruit IS NULL
-ORDER BY c.color;
-
-
-
--- ======================================================
--- Question 6: INNER JOIN (Variation 1 - Old Style)
--- ======================================================
-
+--patrick
+WITH table1 AS (
+  SELECT 'Active' word FROM dual UNION ALL
+  SELECT 'Busy' FROM dual UNION ALL
+  SELECT 'Crafty' FROM dual UNION ALL
+  SELECT 'Determined' FROM dual UNION ALL
+  SELECT 'Eccentric' FROM dual UNION ALL
+  SELECT CAST(NULL AS VARCHAR2(20)) FROM dual
+),
+table2 AS (
+  SELECT 'Cat' word FROM dual UNION ALL
+  SELECT 'Dog' FROM dual UNION ALL
+  SELECT 'Ape' FROM dual UNION ALL
+  SELECT 'Fly' FROM dual UNION ALL
+  SELECT 'Bird' FROM dual UNION ALL
+  SELECT CAST(NULL AS VARCHAR2(20)) FROM dual
+)
 SELECT
-    t1.adjective,
-    t2.animal
+  t1.word AS table1_word,
+  t2.word AS table2_word
+FROM table1 t1
+JOIN table2 t2
+  ON SUBSTR(t1.word,1,1) = SUBSTR(t2.word,1,1)
+ORDER BY t1.word, t2.word;
+
+
+
+
+
+/*===============================================================
+  (13-9) Question 6 – INNER JOIN (Variation 1 syntax)
+===============================================================*/
+
+--patrick
+WITH sec1309_table1 AS (
+  SELECT 'Active' adjective FROM dual UNION ALL
+  SELECT 'Busy' FROM dual UNION ALL
+  SELECT 'Crafty' FROM dual UNION ALL
+  SELECT 'Determined' FROM dual UNION ALL
+  SELECT 'Eccentric' FROM dual UNION ALL
+  SELECT CAST(NULL AS VARCHAR2(20)) FROM dual
+),
+sec1309_table2 AS (
+  SELECT 'Cat' animal FROM dual UNION ALL
+  SELECT 'Dog' FROM dual UNION ALL
+  SELECT 'Ape' FROM dual UNION ALL
+  SELECT 'Fly' FROM dual UNION ALL
+  SELECT 'Bird' FROM dual UNION ALL
+  SELECT CAST(NULL AS VARCHAR2(20)) FROM dual
+)
+SELECT
+  t1.adjective,
+  t2.animal
 FROM sec1309_table1 t1,
      sec1309_table2 t2
-WHERE SUBSTR(t1.adjective, 1, 1) = SUBSTR(t2.animal, 1, 1)
+WHERE SUBSTR(t1.adjective,1,1) = SUBSTR(t2.animal,1,1)
 ORDER BY t1.adjective, t2.animal;
